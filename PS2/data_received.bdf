@@ -499,27 +499,12 @@ refer to the applicable agreement for further details.
 	(pt 560 176)
 )
 (connector
-	(text "message[1]" (rect 544 31 561 86)(font "Intel Clear" )(vertical))
-	(pt 560 32)
-	(pt 560 80)
-)
-(connector
 	(pt 552 80)
 	(pt 560 80)
 )
 (connector
 	(pt 560 80)
 	(pt 568 80)
-)
-(connector
-	(text "message[3]" (rect 808 31 825 86)(font "Intel Clear" )(vertical))
-	(pt 824 32)
-	(pt 824 80)
-)
-(connector
-	(text "message[4]" (rect 944 31 961 86)(font "Intel Clear" )(vertical))
-	(pt 960 32)
-	(pt 960 80)
 )
 (connector
 	(pt 952 80)
@@ -530,22 +515,12 @@ refer to the applicable agreement for further details.
 	(pt 968 80)
 )
 (connector
-	(text "message[6]" (rect 1216 31 1233 86)(font "Intel Clear" )(vertical))
-	(pt 1232 32)
-	(pt 1232 80)
-)
-(connector
 	(pt 1224 80)
 	(pt 1232 80)
 )
 (connector
 	(pt 1232 80)
 	(pt 1240 80)
-)
-(connector
-	(text "message[7]" (rect 1352 31 1369 86)(font "Intel Clear" )(vertical))
-	(pt 1368 32)
-	(pt 1368 80)
 )
 (connector
 	(pt 1360 80)
@@ -600,11 +575,6 @@ refer to the applicable agreement for further details.
 	(pt 272 96)
 )
 (connector
-	(text "message[0]" (rect 400 15 417 70)(font "Intel Clear" )(vertical))
-	(pt 416 16)
-	(pt 416 80)
-)
-(connector
 	(text "message[5]" (rect 1080 15 1097 70)(font "Intel Clear" )(vertical))
 	(pt 1096 16)
 	(pt 1096 80)
@@ -626,26 +596,56 @@ refer to the applicable agreement for further details.
 	(pt 832 80)
 )
 (connector
-	(text "message[2]" (rect 680 -1 697 54)(font "Intel Clear" )(vertical))
-	(pt 696 80)
-	(pt 696 0)
-)
-(connector
-	(text "message[9]" (rect 1616 23 1633 78)(font "Intel Clear" )(vertical))
-	(pt 1632 24)
-	(pt 1632 80)
-)
-(connector
-	(text "message[8]" (rect 1488 7 1505 62)(font "Intel Clear" )(vertical))
-	(pt 1504 80)
-	(pt 1504 8)
-)
-(connector
 	(pt 1760 80)
 	(pt 1776 80)
 )
 (connector
-	(text "message[10]" (rect 1760 10 1777 71)(font "Intel Clear" )(vertical))
+	(text "message[10]" (rect 400 15 417 76)(font "Intel Clear" )(vertical))
+	(pt 416 16)
+	(pt 416 80)
+)
+(connector
+	(text "message[9]" (rect 544 31 561 86)(font "Intel Clear" )(vertical))
+	(pt 560 32)
+	(pt 560 80)
+)
+(connector
+	(text "message[8]" (rect 680 -1 697 54)(font "Intel Clear" )(vertical))
+	(pt 696 80)
+	(pt 696 0)
+)
+(connector
+	(text "message[7]" (rect 808 31 825 86)(font "Intel Clear" )(vertical))
+	(pt 824 32)
+	(pt 824 80)
+)
+(connector
+	(text "message[6]" (rect 944 31 961 86)(font "Intel Clear" )(vertical))
+	(pt 960 32)
+	(pt 960 80)
+)
+(connector
+	(text "message[4]" (rect 1216 31 1233 86)(font "Intel Clear" )(vertical))
+	(pt 1232 32)
+	(pt 1232 80)
+)
+(connector
+	(text "message[3]" (rect 1352 31 1369 86)(font "Intel Clear" )(vertical))
+	(pt 1368 32)
+	(pt 1368 80)
+)
+(connector
+	(text "message[2]" (rect 1488 7 1505 62)(font "Intel Clear" )(vertical))
+	(pt 1504 80)
+	(pt 1504 8)
+)
+(connector
+	(text "message[1]" (rect 1616 23 1633 78)(font "Intel Clear" )(vertical))
+	(pt 1632 24)
+	(pt 1632 80)
+)
+(connector
+	(text "message[0]" (rect 1760 10 1777 65)(font "Intel Clear" )(vertical))
 	(pt 1776 80)
 	(pt 1776 16)
 )

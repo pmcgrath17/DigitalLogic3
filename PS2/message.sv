@@ -7,7 +7,7 @@ module message #(parameter N=11, M=8)
 		always_ff @(posedge clk) 
 			if(enable)
 				begin
-					n1 <= d[M:1]; // nonblocking 
+					n1 <= d[N-1:3]; // nonblocking 
 					q <= n1; // nonblocking 
 				end
 
