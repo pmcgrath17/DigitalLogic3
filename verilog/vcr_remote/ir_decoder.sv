@@ -2,7 +2,7 @@ module ir_decoder
 	(input logic i_clk,
 	input logic i_reset_n,
 	input logic i_ir_signal,
-	output logic [3:0] o_button,
+	output logic [6:0] o_button_ss,
 	output logic o_checksum_valid);
 	
 	// Bits in a signal code
@@ -10,6 +10,8 @@ module ir_decoder
 	
 	logic [SIGNAL_WIDTH-1:0] w_working_bits, w_stored_code;
 	logic w_read_bits, w_latest_bit;
+	
+	logic [3:0] w_button;
 	
 	// Determine whether bits are being read and the latest bit read
 	ir_signal_transcriber signal_transcriber (
@@ -53,7 +55,13 @@ module ir_decoder
 	// Translate the IR code to the corresponding number
 	ir_code_decoder #(.SIGNAL_WIDTH(SIGNAL_WIDTH)) code_decoder (
 		.i_ir_code(w_stored_code),
-		.o_decoded(o_button)
+		.o_decoded(w_button)
+	);
+	
+	// Convert the button value to a 7-segment display value
+	sevenseg sevenseg_converter (
+		.i_data(w_button),
+		.o_segments(o_button_ss)
 	);
 	
 endmodule

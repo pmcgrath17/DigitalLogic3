@@ -84,8 +84,8 @@ assign	SYNTHESIZED_WIRE_3 =  ~SYNTHESIZED_WIRE_14;
 
 
 sevenseg	b2v_inst19(
-	.data(display[3:0]),
-	.segments(ones));
+	.i_data(display[3:0]),
+	.o_segments(ones));
 
 
 sync_ps2	b2v_inst2(
@@ -95,8 +95,8 @@ sync_ps2	b2v_inst2(
 
 
 sevenseg	b2v_inst20(
-	.data(display[7:4]),
-	.segments(sixteens));
+	.i_data(display[7:4]),
+	.o_segments(sixteens));
 
 
 sync_ps2	b2v_inst3(

@@ -47,7 +47,7 @@ module final_project
 		.i_clk(i_clk),
 		.i_reset_n(i_reset_n),
 		.i_ir_signal(i_ir_signal),
-		.o_button(w_sevenseg_vcr),
+		.o_button_ss(w_sevenseg_vcr),
 		.o_checksum_valid(w_led_vcr)
 	);
 	
