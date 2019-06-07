@@ -806,16 +806,6 @@ refer to the applicable agreement for further details.
 	(bus)
 )
 (connector
-	(text "DoESthIsWoRK" (rect 794 176 865 193)(font "Intel Clear" ))
-	(pt 784 192)
-	(pt 912 192)
-)
-(connector
-	(text "counter_one" (rect 850 192 909 209)(font "Intel Clear" ))
-	(pt 912 208)
-	(pt 840 208)
-)
-(connector
 	(pt 344 80)
 	(pt 384 80)
 )
@@ -830,6 +820,16 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 384 240)
 	(pt 336 240)
+)
+(connector
+	(text "<<__$DEF_ALIAS14546>>" (rect 794 176 917 193)(font "Intel Clear" )(invisible))
+	(pt 784 192)
+	(pt 912 192)
+)
+(connector
+	(text "<<__$DEF_ALIAS14548>>" (rect 850 192 973 209)(font "Intel Clear" )(invisible))
+	(pt 912 208)
+	(pt 840 208)
 )
 (junction (pt 200 256))
 (junction (pt 200 440))
