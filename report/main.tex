@@ -1,0 +1,94 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[section]{placeins}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{verbatim}
+\usepackage{color,soul}
+\usepackage{indentfirst}
+\usepackage[backend=biber]{biblatex}
+\addbibresource{chapter3.bib}
+
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{listings}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+
+\title{ECE 271 Design Project, Group 3}
+\author{Casey Huggins, Raymond Jung, Matthew Macovsky, Patrick McGrath}
+\date{June 6th, 2019}
+
+\begin{document}
+
+\lstset{language=Verilog,%
+    basicstyle=\tiny \color{red},
+    breaklines=true,%
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %title=\lstname
+}
+
+\maketitle
+\tableofcontents
+\newpage
+\section{Project Description}
+
+
+
+\newpage
+\section{High Level Description}
+
+
+\subsection{Functional Unit}
+
+\subsubsection{Individual Block}
+
+\subsubsection{Next Individual Block}
+\subsubsection{Next Individual Block}
+\subsubsection{Next Individual Block}
+
+\subsection{Next Functional Unit}
+\subsubsection{Individual Block}
+\subsubsection{Next Individual Block}
+\subsubsection{Next Individual Block}
+
+\subsection{Next Functional Unit}
+\subsubsection{Individual Block}
+\subsubsection{Next Individual Block}
+\subsubsection{Next Individual Block}
+\subsubsection{Next Individual Block}
+\subsubsection{Next Individual Block}
+
+\appendix
+\section{SystemVerilog Files}
+\subsection{Four Digit Display}
+\section{Simulation Files (Do scripts)}
+
+%\bibliographystyle{ieeetr}
+%\bibliography{sample}
+
+
+\end{document}
