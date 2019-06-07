@@ -1,0 +1,5 @@
+module inv(input logic [1:0] a, output logic [1:0] y);
+
+	assign y = ~a;
+
+endmodule

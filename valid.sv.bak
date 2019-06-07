@@ -1,0 +1,12 @@
+module valid #(parameter N = 11)
+				  (input a[N-1:0],
+				   output problem);
+					
+	if(a[10] != 0 | a[0] != 1)
+		problem = 0;
+	else if((a[9] ~| a[8] ~| a[7] ~| a[6] ~| a[5] ~| a[4] ~| a[3] ~| a[2] ~| a[1] ~| a[0]) == 0)
+		problem = 0;
+	else
+		problem = 1;
+		
+endmodule 
