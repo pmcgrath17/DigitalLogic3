@@ -16,7 +16,7 @@ module final_project
 	logic [6:0] w_sevenseg_vcr;
 	
 	// Fetch and decode NES data
-	NesReader nes_reader (
+	DP_NES nes_reader (
 		.dataYellow(i_nes_data),
 		.clock(i_clk),
 		.reset_n(i_reset_n),
