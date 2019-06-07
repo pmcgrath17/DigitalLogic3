@@ -12,8 +12,8 @@
 \usepackage{verbatim}
 \usepackage{color,soul}
 \usepackage{indentfirst}
-\usepackage[backend=biber]{biblatex}
-\addbibresource{chapter3.bib}
+\usepackage[backend=biber,style=ieee]{biblatex}
+\addbibresource{main.bib}
 
 
 %% Sets page size and margins
@@ -28,6 +28,14 @@
 \usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
 \definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
 \definecolor{mylilas}{RGB}{170,55,241}
+
+\makeatletter
+\newcommand{\filecaption}[1]{\filename@parse{#1}\filename@base.\filename@ext}
+\makeatother
+
+\newcommand{\filelisting}[2][]{%
+	\lstinputlisting[caption={\texttt{\protect\filecaption{\detokenize{#2}}}},#1]{#2}%
+}
 
 \title{ECE 271 Design Project, Group 3}
 \author{Casey Huggins, Raymond Jung, Matthew Macovsky, Patrick McGrath}
@@ -56,8 +64,6 @@
 \newpage
 \section{Project Description}
 
-
-
 \newpage
 \section{High Level Description}
 
@@ -84,11 +90,110 @@
 
 \appendix
 \section{SystemVerilog Files}
-\subsection{Four Digit Display}
+% TODO: Top-level code
+
+\subsection{VCR Remote Decoder}
+\filelisting{../verilog/vcr_remote/ir_decoder.sv}
+\filelisting{../verilog/vcr_remote/ir_signal_transcriber.sv}
+\newpage
+\filelisting{../verilog/vcr_remote/sync_counter.sv}
+\filelisting{../verilog/vcr_remote/counter.sv}
+\filelisting{../verilog/vcr_remote/sync.sv}
+\filelisting{../verilog/vcr_remote/shiftreg.sv}
+\filelisting{../verilog/vcr_remote/checksum_validator.sv}
+\filelisting{../verilog/vcr_remote/ir_code_decoder.sv}
+
 \section{Simulation Files (Do scripts)}
 
-%\bibliographystyle{ieeetr}
-%\bibliography{sample}
+\subsection{VCR Remote Decoder}
 
+\subsubsection{ir\_decoder Module}
+\filelisting[float]{../do_files/vcr_remote/setup.do}
+\filelisting[float]{../do_files/vcr_remote/reset.do}
+\filelisting[float]{../do_files/vcr_remote/0.do}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{images/sim/vcr_remote/0.png}
+	\caption{0.do Simulation}
+\end{figure}
+
+\filelisting[float]{../do_files/vcr_remote/1.do}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{images/sim/vcr_remote/1.png}
+	\caption{1.do Simulation}
+\end{figure}
+
+\filelisting[float]{../do_files/vcr_remote/2.do}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{images/sim/vcr_remote/2.png}
+	\caption{2.do Simulation}
+\end{figure}
+
+\filelisting[float]{../do_files/vcr_remote/3.do}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{images/sim/vcr_remote/3.png}
+	\caption{3.do Simulation}
+\end{figure}
+
+\filelisting[float]{../do_files/vcr_remote/4.do}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{images/sim/vcr_remote/4.png}
+	\caption{4.do Simulation}
+\end{figure}
+
+\filelisting[float]{../do_files/vcr_remote/5.do}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{images/sim/vcr_remote/5.png}
+	\caption{5.do Simulation}
+\end{figure}
+
+\filelisting[float]{../do_files/vcr_remote/6.do}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{images/sim/vcr_remote/6.png}
+	\caption{6.do Simulation}
+\end{figure}
+
+\filelisting[float]{../do_files/vcr_remote/7.do}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{images/sim/vcr_remote/7.png}
+	\caption{7.do Simulation}
+\end{figure}
+
+\filelisting[float]{../do_files/vcr_remote/8.do}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{images/sim/vcr_remote/8.png}
+	\caption{8.do Simulation}
+\end{figure}
+
+\filelisting[float]{../do_files/vcr_remote/9.do}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{images/sim/vcr_remote/9.png}
+	\caption{9.do Simulation}
+\end{figure}
+
+\filelisting[float]{../do_files/vcr_remote/sequence.do}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{images/sim/vcr_remote/sequence.png}
+	\caption{sequence.do Simulation}
+\end{figure}
+
+\filelisting[float]{../do_files/vcr_remote/bad_checksum.do}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{images/sim/vcr_remote/bad_checksum.png}
+	\caption{bad\_checksum.do Simulation}
+\end{figure}
+
+\printbibliography
 
 \end{document}
