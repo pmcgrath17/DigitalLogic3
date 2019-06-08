@@ -1,5 +1,5 @@
 module final_project
-	(input logic i_clk, // 50MHz clock
+	(input logic i_clk, // 10MHz clock
 	input logic i_reset_n,
 	input logic i_nes_data,
 	input logic i_ps2_clk, i_ps2_data,
