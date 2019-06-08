@@ -109,105 +109,100 @@ The code for this block is given in \autoref{lst:sv_devices_mux}.
 \subsection{NES Controller Reader}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.85\textwidth]{images/block_diagrams/nes/nestoplevel1.jpg}
-	\caption{Input: This takes in a 1-bit dataYellow input, 10MHz clock input, and a 1-bit reset\_n signal.
-	Output: This outputs a 1-bit clock, 1-bit latch, and a 8-bit bus that denotes the type of button being pressed
-	Description: The NES controller takes in a clock input and as the counter within is outputting a 4-bit count to the other modules, it determines the button that is being pressed on the NES. On the FPGA, it different types of buttons are represented by the various LED segments.}
-	\label{fig:top_level_block}
+  \centering
+    \includegraphics[width=.85\textwidth]{report/images/block_diagrams/nes/nestoplevel1.JPG}
+	\caption{Inputs: This takes in a 1-bit dataYellow input, 10MHz clock input, and a 1-bit reset signal. \newline
+	Outputs: This outputs a 1-bit clock, 1-bit latch, and a 8-bit bus that denotes the type of button being pressed \newline
+	Descriptions: The NES controller takes in a clock input and as the counter within is outputting a 4-bit count to the other modules, it determines the button that is being pressed on the NES. On the FPGA, it different types of buttons are represented by the various LED segments.
+	}
+    \label{fig:top_level_block}
 \end{figure}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.85\textwidth]{images/ModelSim/nesreader.JPG}
-	\caption{This is the ModelSim simulated representation of the Top\_Level Module of the NES Controller. As one can see, as the clock input is pulsing, the reset\_n is turned HIGH (1) and the dataYellow input is HIGH (1), the NES button outputs are each turning to a logic 1 in a period of 100ns. Meanwhile, the internal 4-bit count is incrementing from 0-F in binary. Each button on the NES turns into a logic 1 on the rising edge of the clock. As expected, once the reset is turned OFF (LOW), the functionality of the NES stops as per the 1600ns mark on the simulation.}
-	\label{fig:top_level_block_sim}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.85\textwidth]{images/ModelSim/nesdo.JPG}
-	\caption{Script of the Simulation}
-	\label{fig:top_level_do}
+  \centering
+    \includegraphics[width=.85\textwidth]{images/ModelSim/nesreader.JPG}
+	\caption{This is the ModelSim simulated representation of the Top Level Module of the NES Controller. As one can see, as the clock input is pulsing, the reset is turned HIGH (1) and the dataYellow input is HIGH (1), the NES button outputs are each turning to a logic 1 in a period of 100ns. Meanwhile, the internal 4-bit count is incrementing from 0-F in binary. Each button on the NES turns into a logic 1 on the rising edge of the clock. As expected, once the reset is turned OFF (LOW), the functionality of the NES stops as per the 1600ns mark on the simulation.}
+    \label{fig:top_level_block_sim}
 \end{figure}
 
 \subsubsection{NES Data Receiver}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.85\textwidth]{images/block_diagrams/nes/datareceiver2.jpg}
-	\caption{Inputs: This takes in a 4-bit output from a counter, a reset signal, and a data input
-	Outputs: The 4-bit count input goes through a decoder from within and then expands to a 8-bit output labeled right, left, down, up, start, select, b, and a. 
-	Description: This module takes in data from the counter and then highlights the buttons pressed on the the data input. It receives the data.}
-	\label{fig:data_receiver}
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/datareceiver2.jpg}
+	\caption{Inputs: This takes in a 4-bit output from a counter, a reset signal, and a data input \newline
+Outputs: The 4-bit count input goes through a decoder from within and then expands to a 8-bit output labeled right, left, down, up, start, select, b, and a. \newline
+Description: This module takes in data from the counter and then highlights the buttons pressed on the the data input. It receives the data.} 
+    \label{fig:data_receiver}
 \end{figure}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.85\textwidth]{images/ModelSim/nesdatare.JPG}
+  \centering
+    \includegraphics[width=.85\textwidth]{images/ModelSim/nesdatare.JPG}
 	\caption{NES Data Receiver Simulation Part 1}
-	\label{fig:data_receiver_sim}
+    \label{fig:data_receiver_sim}
 \end{figure}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.85\textwidth]{images/ModelSim/nesdatare2.JPG}
-	\caption{This is the simulation provided for the NesDataReceiver module. In order for the NES to function, both the reset\_n and dataYellow input have to be at a logic 1 (HIGH). As the NesDataReceiver count increments from 0->F, the output shows that the button outputs pulse to a logic 1 in increments of 100ns. Near the end of the simulation, pulling the “reset\_n” input back to zero.}
-	\label{fig:data_receiver_sim}
+  \centering
+    \includegraphics[width=.85\textwidth]{images/ModelSim/nesdatare2.JPG}
+	\caption{This is the simulation provided for the NesDataReceiver module. In order for the NES to function, both the reset and dataYellow input have to be at a logic 1 (HIGH). As the NesDataReceiver count increments from 0->F, the output shows that the button outputs pulse to a logic 1 in increments of 100ns. Near the end of the simulation, pulling the “reset” input back to zero.}
+    \label{fig:data_receiver_sim}
 \end{figure}
 
 \subsubsection{NES Latch}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.85\textwidth]{images/block_diagrams/nes/latch3.jpg}
-	\caption{Inputs: This takes in a 4-bit output from a counter
-	Outputs: The 4-bit count input goes through a comparator logic alongside a second 4-bit input and base the comparison value, either a 0 or 1 will be outputted.
-	Description: This module takes in data from the counter outputs a 1-bit output labeled as “LatchOrange”}
-	\label{fig:latch}
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/latch3.jpg}
+	\caption{Inputs: This takes in a 4-bit output from a counter \newline
+Outputs: The 4-bit count input goes through a comparator logic alongside a second 4-bit input and base the comparison value, either a 0 or 1 will be outputted. \newline
+Description: This module takes in data from the counter outputs a 1-bit output labeled as “LatchOrange”}
+    \label{fig:latch}
 \end{figure}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.85\textwidth]{images/ModelSim/neslatch_sim.JPG}
+  \centering
+    \includegraphics[width=.85\textwidth]{images/ModelSim/neslatch_sim.JPG}
 	\caption{This is the individual simulation of the NesLatchStateDecoder module. As displayed, the latch state is pulled to a logic 1 when the 4-bit controllerState input is at 0. Otherwise, the output is at a logic 0. This makes sense when looking at the module, the B input is at a constant 0. As long at the 4-bit input, also named as A[3..0], is not equivalent to B (0), the latch output will always be at 0.}
-	\label{fig:latch_sim}
+    \label{fig:latch_sim}
 \end{figure}
 
 \subsubsection{NES Clock}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.85\textwidth]{images/block_diagrams/nes/clock4.jpg}
-	\caption{Inputs: This takes in a 4-bit output from a counter
-	Outputs: This outputs a 1-bit clock output labeled “clockRed”
-	Description: This module takes in data from the counter and the decoder within expands it to a 16-bit output. It then goes through a wide OR gate that outputs a 1 if its 16-bit input is of an even value. This resembles a clock as the counter goes between odd and even values back and forth.}
-	\label{fig:clock}
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/clock4.jpg}
+	\caption{Inputs: This takes in a 4-bit output from a counter \newline
+Outputs: This outputs a 1-bit clock output labeled “clockRed”
+\newline
+Description: This module takes in data from the counter and the decoder within expands it to a 16-bit output. It then goes through a wide OR gate that outputs a 1 if its 16-bit input is of an even value. This resembles a clock as the counter goes between odd and even values back and forth.}
+    \label{fig:clock}
 \end{figure}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.85\textwidth]{images/ModelSim/nesclock.JPG}
+  \centering
+    \includegraphics[width=.85\textwidth]{images/ModelSim/nesclock.JPG}
 	\caption{This is the individual simulation of the NesClockStateDecoder module ran on ModelSim. As the 4-bit controllerState increments from 0->F in binary, the output is shown to be operating as it should with a clock pulsing between equal intervals. Looking more in depth at the NesClockStateDecoder, the OR gate implemented only outputs a 1 on even inputs. Looking at the simulation here, one can see that the output is at a logic 1 for every even number input shown in binary such as 4’b0010 and 4’0101.}
-	\label{fig:clock_sim}
+    \label{fig:clock_sim}
 \end{figure}
 
 \subsubsection{NES Counter}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.85\textwidth]{images/block_diagrams/nes/counter5.jpg}
-	\caption{Inputs: This takes in a 10MHz clock input and a reset signal 
-	Outputs: This outputs a 4-bit count
-	Description: As the reset signal is a logic HIGH (1) and there is a clock input running through the counter, the counter will continue to increment starting from 0 to F and then back around. Upon a reset signal that’s turned LOW, the counter will reset to 0.}
-	\label{fig:counter}
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/counter5.jpg}
+	\caption{Inputs: This takes in a 10MHz clock input and a reset signal \newline
+Outputs: This outputs a 4-bit count \newline
+Description: As the reset signal is a logic HIGH (1) and there is a clock input running through the counter, the counter will continue to increment starting from 0 to F and then back around. Upon a reset signal that’s turned LOW, the counter will reset to 0.}
+    \label{fig:counter}
 \end{figure}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.85\textwidth]{images/ModelSim/nescounter.JPG}
-	\caption{This simulation is representing the individual counter module of the NES controller. By sending in a clock input at the start and testing the reset\_n input, one can see that the counter doesn’t operate when reset\_n is LOW (expected). As reset\_n shifts to a logic 1 upon 150ns and stays at 1, the counter is shown to be functioning. It is incrementing by 1 from 0->F (represented in binary), and once it reaches F, the next value for the output returns to 0.}
-	\label{fig:counter_sim}
+  \centering
+    \includegraphics[width=.85\textwidth]{images/ModelSim/nescounter.JPG}
+	\caption{This simulation is representing the individual counter module of the NES controller. By sending in a clock input at the start and testing the reset input, one can see that the counter doesn’t operate when reset is LOW (expected). As reset shifts to a logic 1 upon 150ns and stays at 1, the counter is shown to be functioning. It is incrementing by 1 from 0->F (represented in binary), and once it reaches F, the next value for the output returns to 0.}
+    \label{fig:counter_sim}
 \end{figure}
 
 \subsection{PS2 Keyboard Decoder}
@@ -488,7 +483,13 @@ The code for this block is given in \autoref{lst:sv_vcr_ir_code_decoder}.
 \filelisting[label=lst:sim_devices_mux]{../do_files/devices_mux.do}
 
 \subsection{NES Controller Reader}
-TODO
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/ModelSim/nesdo.JPG}
+	\caption{NES.do}
+    \label{fig:top_level_do}
+\end{figure}
 
 \subsection{PS2 Keyboard Decoder}
 
