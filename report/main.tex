@@ -223,7 +223,18 @@ Description: As the reset signal is a logic HIGH (1) and there is a clock input 
 	\caption{Above is the ModelSim simulation of the top level PS2 driver for the FPGA. In this diagram, the clock represents the 50MHz clock on the FPGA}
 	\label{fig:PS2_topsim}
 \end{figure}
-\subsubsection{Next Individual Block}
+
+\subsubsection{PS/2 Checker}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/PS2/checker.jpg}
+	\caption{Input: The inputs consist of “data” and “clk,” both of which toggle. The “data” node is always related to t the PS2 keyboard while the “clk” is always related to the 50MHz clock of the FPGA.
+Output: The output is “q” which is either a past value or a passed on value from a past “data” input.
+Description: This module effectively functions as a period checker. Whenever “data changes,” a counter is used to ensure that the proper period is left before the input changes again. If the “data” input changes too quickly, the input is seen as volatile and “q” is left to take on its old value}
+    \label{fig:counter}
+\end{figure}
+
 \subsubsection{Next Individual Block}
 \subsubsection{Next Individual Block}
 \subsubsection{Next Individual Block}
