@@ -1,7 +1,7 @@
 module devices_mux #(parameter N = 8)
-	(input [N-1:0] i_default, i_nes, i_ps2, i_vcr,
-	input [1:0] i_sel,
-	output [N-1:0] o_selection);
+	(input logic [N-1:0] i_default, i_nes, i_ps2, i_vcr,
+	input logic [1:0] i_sel,
+	output logic [N-1:0] o_selection);
 	
 	always_comb
 		case(i_sel)

@@ -85,6 +85,26 @@ The project consists of three decoders, one each for NES, IR, and PS2 controller
     \label{fig:top_level}
 \end{figure}
 
+\subsection{Devices Mux}
+
+\textbf{Input:} This module reads values from each of the three device blocks (\code{i_nes}, \code{i_ps2}, \code{i_vcr}) as well as a default value (\code{i_default}).  It also reads a select input (\code{i_sel}).
+\\ \\
+\textbf{Output:} \code{o_selection} is one of the input values, selected depending on \code{i_sel}.
+\\ \\
+The code for this block is given in \autoref{lst:sv_devices_mux}.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/devices_mux.png}
+	\caption{An expanded view of the \code{devices_mux} block \code{leds_mux} in \autoref{fig:top_level}.  This module uses muxes to select which device to send to the FPGA outputs based on \code{i_sel}.  In this particular instance, \code{i_default} was connected to 0, so it was simplified from being a separate input to being connections within the module to GND.  The \code{i_sel} value \code{00} connects \code{o_selection} to \code{i_default}; \code{01} connects it to \code{i_nes}; \code{10} connects it to \code{i_ps2}; and \code{11} connects it to \code{i_vcr}.}
+    \label{fig:block_vcr_devices_mux}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.95\textwidth]{images/sim/devices_mux.png}
+	\caption{Simulation results for the \code{devices_mux} module (see \autoref{lst:sim_devices_mux} for simulation code).}
+\end{figure}
 
 \subsection{NES Controller Reader}
 
@@ -159,7 +179,7 @@ The code for this block is given in \autoref{lst:sv_vcr_ir_decoder}.
 
 \begin{figure}[H]
   \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/ir_decoder.png}
+    \includegraphics[width=\textwidth]{images/block_diagrams/vcr_remote/ir_decoder.png}
 	\caption{An expanded view of the top-level VCR remote decoder block in \autoref{fig:top_level}.  This interprets codes sent over IR using the NEC protocol as described in \cite{nec}.  A signal transcriber (\code{signal_transcriber}) determines whether bits are currently being sent and the most recent bit.  These are fed into a shift register (\code{bit_store}) at the end of the transmission of each bit.  Once an entire code has been transmitted, the contents of that register are transferred to another, \code{final_code}.  The checksum of this code is then checked by the checksum validator \code{validator} and output to \code{o_checksum_valid}.  It is also decoded to the number pressed on the remote by a decoder (\code{code_decoder}) and then converted to a 7-segment display signal by \code{segsev_converter} before being output to \code{o_button_ss}.}
     \label{fig:block_vcr_ir_decoder}
 \end{figure}
@@ -267,14 +287,18 @@ The simulations in the previous section also serve to simulate this module.
 \textbf{Output:} \code{o_count} provides the current value of the counter.
 \\ \\
 The code for this block is given in \autoref{lst:sv_vcr_sync_counter}.
-\\ \\
-TODO SIMULATIONS
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/sync_counter.png}
 	\caption{An expanded view of the \code{sync_counter} block \code{bit_count} in \autoref{fig:block_vcr_ir_signal_transcriber_1}.  This module acts like a clock but places a synchronizer between the reset input and the clock reset.  It also adds an extra reset condition \code{i_reset_cond} that is combined with the active low \code{i_reset_n} to also reset the counter when that input is high.}
     \label{fig:block_vcr_sync_counter}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.95\textwidth]{images/sim/vcr_remote/sync_counter.png}
+	\caption{Simulation results for the \code{sync_counter} module (see \autoref{lst:sim_vcr_sync_counter} for simulation code).}
 \end{figure}
 
 \subsubsection{Counter}
@@ -284,14 +308,18 @@ TODO SIMULATIONS
 \textbf{Output:} \code{o_count} provides the current value of the counter.
 \\ \\
 The code for this block is given in \autoref{lst:sv_vcr_counter}.
-\\ \\
-TODO SIMULATIONS
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/counter.png}
 	\caption{An expanded view of the \code{counter} block \code{count} in \autoref{fig:block_vcr_sync_counter}.  The counter contains D flip-flops with enable and clear inputs that increment the stored value on each rising edge of \code{i_clk}.}
     \label{fig:block_vcr_counter}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.95\textwidth]{images/sim/vcr_remote/counter.png}
+	\caption{Simulation results for the \code{counter} module (see \autoref{lst:sim_vcr_counter} for simulation code).}
 \end{figure}
 
 \subsubsection{Synchronizer}
@@ -301,14 +329,18 @@ TODO SIMULATIONS
 \textbf{Output:} \code{o_q} provides the synchronized data signal.
 \\ \\
 The code for this block is given in \autoref{lst:sv_vcr_sync}.
-\\ \\
-TODO SIMULATIONS
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/sync.png}
 	\caption{An expanded view of the \code{sync} block \code{synchronizer} in \autoref{fig:block_vcr_sync_counter}.  The synchronizer contains two D flip-flops, forcing the input value \code{i_d} to pass through both (synchronizing with \code{i_clk} in the process) before being output on \code{o_q}.}
     \label{fig:block_vcr_sync}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.95\textwidth]{images/sim/vcr_remote/sync.png}
+	\caption{Simulation results for the \code{sync} module (see \autoref{lst:sim_vcr_sync} for simulation code).}
 \end{figure}
 
 \subsubsection{Shift Register}
@@ -318,14 +350,18 @@ TODO SIMULATIONS
 \textbf{Output:} \code{o_sout} provides the stored data serially.  \code{o_pout} provides the stored data in a parallel format.
 \\ \\
 The code for this block is given in \autoref{lst:sv_vcr_shiftreg}.
-\\ \\
-TODO SIMULATIONS
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/shiftreg.png}
 	\caption{An expanded view of the \code{shiftreg} block \code{bit_store} in \autoref{fig:block_vcr_ir_decoder}.  The shift register uses D flip-flops with enable and clear inputs to store thir value.  If \code{i_load} is low, \code{i_sin} is combined with all of the stored bits without the oldest one and sent to the flip-flops' data inputs.  If \code{i_load} is high, the entirety of \code{i_pin} is sent to those data inputs.}
     \label{fig:block_vcr_shiftreg}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.95\textwidth]{images/sim/vcr_remote/shiftreg.png}
+	\caption{Simulation results for the \code{shiftreg} module (see \autoref{lst:sim_vcr_shiftreg} for simulation code).}
 \end{figure}
 
 \subsubsection{Checksum Validator}
@@ -335,14 +371,18 @@ TODO SIMULATIONS
 \textbf{Output:} \code{o_checksum_valid} indicates whether the code's checksum is valid.
 \\ \\
 The code for this block is given in \autoref{lst:sv_vcr_checksum_validator}.
-\\ \\
-TODO SIMULATIONS
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/checksum_validator.png}
 	\caption{An expanded view of the \code{checksum_validator} block \code{validator} in \autoref{fig:block_vcr_ir_decoder}.  The validator XORs the first quarter of the code with the second quarter and the third quarter of the code with the fourth.  If the checksum is valid, the result should be a string of all 1s. This is checked by ANDing together the output of all of the XORs.  The result of this (\code{o_checksum_valid}) is 1 if the checksum is valid and 0 if it is invalid.}
     \label{fig:block_vcr_checksum_validator}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.95\textwidth]{images/sim/vcr_remote/checksum_validator.png}
+	\caption{Simulation results for the \code{checksum_validator} module (see \autoref{lst:sim_vcr_checksum_validator} for simulation code).}
 \end{figure}
 
 \subsubsection{IR Code Decoder}
@@ -352,14 +392,18 @@ TODO SIMULATIONS
 \textbf{Output:} \code{o_decoded} provides the decoded value sent by the remote (a number 0-9).
 \\ \\
 The code for this block is given in \autoref{lst:sv_vcr_ir_code_decoder}.
-\\ \\
-TODO SIMULATIONS
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/ir_code_decoder.png}
 	\caption{An expanded view of the \code{ir_code_decoder} block \code{code_decoder} in \autoref{fig:block_vcr_ir_decoder}.  On the left, \code{i_ir_code} is checked against each of the possible codes so that the output of the comparators acts as a one-hot encoding of the decoded value.  On the right is the simplified logic which uses these outputs to set the bits of \code{o_decoded} accordingly.}
     \label{fig:block_vcr_ir_code_decoder}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.95\textwidth]{images/sim/vcr_remote/ir_code_decoder.png}
+	\caption{Simulation results for the \code{ir_code_decoder} module (see \autoref{lst:sim_vcr_ir_code_decoder} for simulation code).}
 \end{figure}
 
 
@@ -393,6 +437,7 @@ TODO SIMULATIONS
 \filelisting[label=lst:sv_vcr_ir_code_decoder]{../verilog/vcr_remote/ir_code_decoder.sv}
 
 \section{Simulation Files (Do scripts)}
+\filelisting[label=lst:sim_devices_mux]{../do_files/devices_mux.do}
 
 \subsection{NES Controller Reader}
 TODO
@@ -419,6 +464,24 @@ TODO
 \filelisting[label=lst:sim_vcr_ir_decoder_9]{../do_files/vcr_remote/9.do}
 \filelisting[label=lst:sim_vcr_ir_decoder_sequence]{../do_files/vcr_remote/sequence.do}
 \filelisting[label=lst:sim_vcr_ir_decoder_bad_checksum]{../do_files/vcr_remote/bad_checksum.do}
+
+\subsubsection{\texttt{sync\_counter} Module}
+\filelisting[label=lst:sim_vcr_sync_counter]{../do_files/vcr_remote/sync_counter.do}
+
+\subsubsection{\texttt{counter} Module}
+\filelisting[label=lst:sim_vcr_counter]{../do_files/vcr_remote/counter.do}
+
+\subsubsection{\texttt{sync} Module}
+\filelisting[label=lst:sim_vcr_sync]{../do_files/vcr_remote/sync.do}
+
+\subsubsection{\texttt{shiftreg} Module}
+\filelisting[label=lst:sim_vcr_shiftreg]{../do_files/vcr_remote/shiftreg.do}
+
+\subsubsection{\texttt{checksum\_validator} Module}
+\filelisting[label=lst:sim_vcr_checksum_validator]{../do_files/vcr_remote/checksum_validator.do}
+
+\subsubsection{\texttt{ir\_code\_decoder} Module}
+\filelisting[label=lst:sim_vcr_ir_code_decoder]{../do_files/vcr_remote/ir_code_decoder.do}
 
 \printbibliography
 
