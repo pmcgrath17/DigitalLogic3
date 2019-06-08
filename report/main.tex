@@ -209,10 +209,18 @@ The simulations in the previous section also serve to simulate this module.
 \filelisting[label=lst:sv_devices_mux]{../verilog/devices_mux.sv}
 
 \subsection{NES Controller Reader}
-TODO
+\filelisting[label=lst:sv_nes_dp_nes]{../verilog/nes/DP_NES.sv}
 
 \subsection{PS2 Keyboard Decoder}
-TODO
+\filelisting[label=lst:sv_ps2_ps_2]{../verilog/ps2/PS_2.v}
+\filelisting[label=lst:sv_ps2_data_received]{../verilog/ps2/data_received.v}
+\filelisting[label=lst:sv_ps2_sync_ps2]{../verilog/ps2/sync_ps2.sv}
+\filelisting[label=lst:sv_ps2_valid]{../verilog/ps2/valid.sv}
+\filelisting[label=lst:sv_ps2_compare]{../verilog/ps2/compare.sv}
+\filelisting[label=lst:sv_ps2_encounter]{../verilog/ps2/encounter.sv}
+\filelisting[label=lst:sv_ps2_sevenseg]{../verilog/ps2/sevenseg.sv}
+\filelisting[label=lst:sv_ps2_checker]{../verilog/ps2/checker.v}
+\filelisting[label=lst:sv_ps2_message]{../verilog/ps2/message.sv}
 
 \subsection{VCR Remote Decoder}
 \filelisting[label=lst:sv_vcr_ir_decoder]{../verilog/vcr_remote/ir_decoder.sv}
@@ -230,25 +238,27 @@ TODO
 TODO
 
 \subsection{PS2 Keyboard Decoder}
-TODO
+
+\subsubsection{PS\_2 Module}
+\filelisting[label=lst:sim_ps2_ps_2]{../do_files/ps2/PS2.do}
 
 \subsection{VCR Remote Decoder}
 
 \subsubsection{ir\_decoder Module}
-\filelisting[float]{../do_files/vcr_remote/setup.do}
-\filelisting[float]{../do_files/vcr_remote/reset.do}
-\filelisting[float,label=lst:sim_vcr_ir_decoder_0]{../do_files/vcr_remote/0.do}
-\filelisting[float,label=lst:sim_vcr_ir_decoder_1]{../do_files/vcr_remote/1.do}
-\filelisting[float,label=lst:sim_vcr_ir_decoder_2]{../do_files/vcr_remote/2.do}
-\filelisting[float,label=lst:sim_vcr_ir_decoder_3]{../do_files/vcr_remote/3.do}
-\filelisting[float,label=lst:sim_vcr_ir_decoder_4]{../do_files/vcr_remote/4.do}
-\filelisting[float,label=lst:sim_vcr_ir_decoder_5]{../do_files/vcr_remote/5.do}
-\filelisting[float,label=lst:sim_vcr_ir_decoder_6]{../do_files/vcr_remote/6.do}
-\filelisting[float,label=lst:sim_vcr_ir_decoder_7]{../do_files/vcr_remote/7.do}
-\filelisting[float,label=lst:sim_vcr_ir_decoder_8]{../do_files/vcr_remote/8.do}
-\filelisting[float,label=lst:sim_vcr_ir_decoder_9]{../do_files/vcr_remote/9.do}
-\filelisting[float,label=lst:sim_vcr_ir_decoder_sequence]{../do_files/vcr_remote/sequence.do}
-\filelisting[float,label=lst:sim_vcr_ir_decoder_bad_checksum]{../do_files/vcr_remote/bad_checksum.do}
+\filelisting{../do_files/vcr_remote/setup.do}
+\filelisting{../do_files/vcr_remote/reset.do}
+\filelisting[label=lst:sim_vcr_ir_decoder_0]{../do_files/vcr_remote/0.do}
+\filelisting[label=lst:sim_vcr_ir_decoder_1]{../do_files/vcr_remote/1.do}
+\filelisting[label=lst:sim_vcr_ir_decoder_2]{../do_files/vcr_remote/2.do}
+\filelisting[label=lst:sim_vcr_ir_decoder_3]{../do_files/vcr_remote/3.do}
+\filelisting[label=lst:sim_vcr_ir_decoder_4]{../do_files/vcr_remote/4.do}
+\filelisting[label=lst:sim_vcr_ir_decoder_5]{../do_files/vcr_remote/5.do}
+\filelisting[label=lst:sim_vcr_ir_decoder_6]{../do_files/vcr_remote/6.do}
+\filelisting[label=lst:sim_vcr_ir_decoder_7]{../do_files/vcr_remote/7.do}
+\filelisting[label=lst:sim_vcr_ir_decoder_8]{../do_files/vcr_remote/8.do}
+\filelisting[label=lst:sim_vcr_ir_decoder_9]{../do_files/vcr_remote/9.do}
+\filelisting[label=lst:sim_vcr_ir_decoder_sequence]{../do_files/vcr_remote/sequence.do}
+\filelisting[label=lst:sim_vcr_ir_decoder_bad_checksum]{../do_files/vcr_remote/bad_checksum.do}
 
 \printbibliography
 
