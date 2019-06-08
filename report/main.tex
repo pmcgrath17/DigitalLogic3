@@ -87,11 +87,60 @@ The project consists of three decoders, one each for NES, IR, and PS2 controller
 
 
 \subsection{NES Controller Reader}
-\subsubsection{Individual Block}
-\subsubsection{Next Individual Block}
-\subsubsection{Next Individual Block}
-\subsubsection{Next Individual Block}
-\subsubsection{Next Individual Block}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/nestoplevel1.jpg}
+	\caption{Input: This takes in a 1-bit dataYellow input, 10MHz clock input, and a 1-bit reset_n signal.
+Output: This outputs a 1-bit clock, 1-bit latch, and a 8-bit bus that denotes the type of button being pressed
+Description: The NES controller takes in a clock input and as the counter within is outputting a 4-bit count to the other modules, it determines the button that is being pressed on the NES. On the FPGA, it different types of buttons are represented by the various LED segments.}
+    \label{fig:top_level_block}
+\end{figure}
+
+\subsubsection{NES Data Receiver}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/datareceiver2.jpg}
+	\caption{Inputs: This takes in a 4-bit output from a counter, a reset signal, and a data input
+Outputs: The 4-bit count input goes through a decoder from within and then expands to a 8-bit output labeled right, left, down, up, start, select, b, and a. 
+Description: This module takes in data from the counter and then highlights the buttons pressed on the the data input. It receives the data.}
+    \label{fig:data_receiver}
+\end{figure}
+
+\subsubsection{NES Latch}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/latch3.jpg}
+	\caption{Inputs: This takes in a 4-bit output from a counter
+Outputs: The 4-bit count input goes through a comparator logic alongside a second 4-bit input and base the comparison value, either a 0 or 1 will be outputted.
+Description: This module takes in data from the counter outputs a 1-bit output labeled as “LatchOrange”}
+    \label{fig:latch}
+\end{figure}
+
+\subsubsection{NES Clock}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/clock4.jpg}
+	\caption{Inputs: This takes in a 4-bit output from a counter
+Outputs: This outputs a 1-bit clock output labeled “clockRed”
+Description: This module takes in data from the counter and the decoder within expands it to a 16-bit output. It then goes through a wide OR gate that outputs a 1 if its 16-bit input is of an even value. This resembles a clock as the counter goes between odd and even values back and forth.}
+    \label{fig:clock}
+\end{figure}
+
+\subsubsection{NES Counter}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/counter5.jpg}
+	\caption{Inputs: This takes in a 10MHz clock input and a reset signal 
+Outputs: This outputs a 4-bit count
+Description: As the reset signal is a logic HIGH (1) and there is a clock input running through the counter, the counter will continue to increment starting from 0 to F and then back around. Upon a reset signal that’s turned LOW, the counter will reset to 0.}
+    \label{fig:counter}
+\end{figure}
+
 
 \subsection{PS2 Keyboard Decoder}
 \subsubsection{Individual Block}
