@@ -94,10 +94,10 @@ The project consists of three decoders, one each for NES, IR, and PS2 controller
 The code for this block is given in \autoref{lst:sv_devices_mux}.
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/devices_mux.png}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/devices_mux.png}
 	\caption{An expanded view of the \code{devices_mux} block \code{leds_mux} in \autoref{fig:top_level}.  This module uses muxes to select which device to send to the FPGA outputs based on \code{i_sel}.  In this particular instance, \code{i_default} was connected to 0, so it was simplified from being a separate input to being connections within the module to GND.  The \code{i_sel} value \code{00} connects \code{o_selection} to \code{i_default}; \code{01} connects it to \code{i_nes}; \code{10} connects it to \code{i_ps2}; and \code{11} connects it to \code{i_vcr}.}
-    \label{fig:block_vcr_devices_mux}
+	\label{fig:block_vcr_devices_mux}
 \end{figure}
 
 \begin{figure}[H]
@@ -109,56 +109,56 @@ The code for this block is given in \autoref{lst:sv_devices_mux}.
 \subsection{NES Controller Reader}
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/nestoplevel1.jpg}
-	\caption{Input: This takes in a 1-bit dataYellow input, 10MHz clock input, and a 1-bit reset_n signal.
-Output: This outputs a 1-bit clock, 1-bit latch, and a 8-bit bus that denotes the type of button being pressed
-Description: The NES controller takes in a clock input and as the counter within is outputting a 4-bit count to the other modules, it determines the button that is being pressed on the NES. On the FPGA, it different types of buttons are represented by the various LED segments.}
-    \label{fig:top_level_block}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/nes/nestoplevel1.jpg}
+	\caption{Input: This takes in a 1-bit dataYellow input, 10MHz clock input, and a 1-bit reset\_n signal.
+	Output: This outputs a 1-bit clock, 1-bit latch, and a 8-bit bus that denotes the type of button being pressed
+	Description: The NES controller takes in a clock input and as the counter within is outputting a 4-bit count to the other modules, it determines the button that is being pressed on the NES. On the FPGA, it different types of buttons are represented by the various LED segments.}
+	\label{fig:top_level_block}
 \end{figure}
 
 \subsubsection{NES Data Receiver}
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/datareceiver2.jpg}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/nes/datareceiver2.jpg}
 	\caption{Inputs: This takes in a 4-bit output from a counter, a reset signal, and a data input
-Outputs: The 4-bit count input goes through a decoder from within and then expands to a 8-bit output labeled right, left, down, up, start, select, b, and a. 
-Description: This module takes in data from the counter and then highlights the buttons pressed on the the data input. It receives the data.}
-    \label{fig:data_receiver}
+	Outputs: The 4-bit count input goes through a decoder from within and then expands to a 8-bit output labeled right, left, down, up, start, select, b, and a. 
+	Description: This module takes in data from the counter and then highlights the buttons pressed on the the data input. It receives the data.}
+	\label{fig:data_receiver}
 \end{figure}
 
 \subsubsection{NES Latch}
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/latch3.jpg}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/nes/latch3.jpg}
 	\caption{Inputs: This takes in a 4-bit output from a counter
-Outputs: The 4-bit count input goes through a comparator logic alongside a second 4-bit input and base the comparison value, either a 0 or 1 will be outputted.
-Description: This module takes in data from the counter outputs a 1-bit output labeled as “LatchOrange”}
-    \label{fig:latch}
+	Outputs: The 4-bit count input goes through a comparator logic alongside a second 4-bit input and base the comparison value, either a 0 or 1 will be outputted.
+	Description: This module takes in data from the counter outputs a 1-bit output labeled as “LatchOrange”}
+	\label{fig:latch}
 \end{figure}
 
 \subsubsection{NES Clock}
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/clock4.jpg}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/nes/clock4.jpg}
 	\caption{Inputs: This takes in a 4-bit output from a counter
-Outputs: This outputs a 1-bit clock output labeled “clockRed”
-Description: This module takes in data from the counter and the decoder within expands it to a 16-bit output. It then goes through a wide OR gate that outputs a 1 if its 16-bit input is of an even value. This resembles a clock as the counter goes between odd and even values back and forth.}
-    \label{fig:clock}
+	Outputs: This outputs a 1-bit clock output labeled “clockRed”
+	Description: This module takes in data from the counter and the decoder within expands it to a 16-bit output. It then goes through a wide OR gate that outputs a 1 if its 16-bit input is of an even value. This resembles a clock as the counter goes between odd and even values back and forth.}
+	\label{fig:clock}
 \end{figure}
 
 \subsubsection{NES Counter}
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/nes/counter5.jpg}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/nes/counter5.jpg}
 	\caption{Inputs: This takes in a 10MHz clock input and a reset signal 
-Outputs: This outputs a 4-bit count
-Description: As the reset signal is a logic HIGH (1) and there is a clock input running through the counter, the counter will continue to increment starting from 0 to F and then back around. Upon a reset signal that’s turned LOW, the counter will reset to 0.}
-    \label{fig:counter}
+	Outputs: This outputs a 4-bit count
+	Description: As the reset signal is a logic HIGH (1) and there is a clock input running through the counter, the counter will continue to increment starting from 0 to F and then back around. Upon a reset signal that’s turned LOW, the counter will reset to 0.}
+	\label{fig:counter}
 \end{figure}
 
 
@@ -178,10 +178,10 @@ Description: As the reset signal is a logic HIGH (1) and there is a clock input 
 The code for this block is given in \autoref{lst:sv_vcr_ir_decoder}.
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=\textwidth]{images/block_diagrams/vcr_remote/ir_decoder.png}
+	\centering
+	\includegraphics[width=\textwidth]{images/block_diagrams/vcr_remote/ir_decoder.png}
 	\caption{An expanded view of the top-level VCR remote decoder block in \autoref{fig:top_level}.  This interprets codes sent over IR using the NEC protocol as described in \cite{nec}.  A signal transcriber (\code{signal_transcriber}) determines whether bits are currently being sent and the most recent bit.  These are fed into a shift register (\code{bit_store}) at the end of the transmission of each bit.  Once an entire code has been transmitted, the contents of that register are transferred to another, \code{final_code}.  The checksum of this code is then checked by the checksum validator \code{validator} and output to \code{o_checksum_valid}.  It is also decoded to the number pressed on the remote by a decoder (\code{code_decoder}) and then converted to a 7-segment display signal by \code{segsev_converter} before being output to \code{o_button_ss}.}
-    \label{fig:block_vcr_ir_decoder}
+	\label{fig:block_vcr_ir_decoder}
 \end{figure}
 
 \begin{figure}[H]
@@ -267,17 +267,17 @@ The code for this block is given in \autoref{lst:sv_vcr_ir_signal_transcriber}.
 The simulations in the previous section also serve to simulate this module.
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/ir_signal_transcriber_1.png}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/ir_signal_transcriber_1.png}
 	\caption{An expanded view of the first half of the IR signal transcriber block in \autoref{fig:block_vcr_ir_decoder}.  A 10-bit counter (\code{divider}) divides the 10MHz input clock down to 10KHz.  Another counter, \code{leader_high_count}, uses this clock to count up as long as the input signal is high (for the high part of the leader) and it hasn't reached the length of that high part.  It resets if the signal goes low again before it has reached that value and when 32 bits have been read.  The bit counter to the left is enabled when the entire leader has ended and increments for each bit read.  It also resets when 32 bits have been read.}
-    \label{fig:block_vcr_ir_signal_transcriber_1}
+	\label{fig:block_vcr_ir_signal_transcriber_1}
 \end{figure}
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/ir_signal_transcriber_2.png}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/ir_signal_transcriber_2.png}
 	\caption{An expanded view of the second half of the IR signal transcriber block in \autoref{fig:block_vcr_ir_decoder}.  A counter (\code{leader_low_count}) acts similarly to \code{leader_high_count}.  It is enabled when the high part of the leader has ended and counts up to the length of the low part of the leader.  It resets once it has reached that length.  At this point, \code{pulse_count} is enabled and counts as long as the signal is low.  This is used to determine the length of each pulse distance.  A comparator determines if the distance is less than a cutoff (a 0) or greater than the cutoff (signifying  a 1).  Additionally, \code{o_read_bits} is set high when the low part of the leader has ended and fewer than 32 bits have been read.}
-    \label{fig:block_vcr_ir_signal_transcriber_2}
+	\label{fig:block_vcr_ir_signal_transcriber_2}
 \end{figure}
 
 \subsubsection{Sync-Counter}
@@ -289,10 +289,10 @@ The simulations in the previous section also serve to simulate this module.
 The code for this block is given in \autoref{lst:sv_vcr_sync_counter}.
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/sync_counter.png}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/sync_counter.png}
 	\caption{An expanded view of the \code{sync_counter} block \code{bit_count} in \autoref{fig:block_vcr_ir_signal_transcriber_1}.  This module acts like a clock but places a synchronizer between the reset input and the clock reset.  It also adds an extra reset condition \code{i_reset_cond} that is combined with the active low \code{i_reset_n} to also reset the counter when that input is high.}
-    \label{fig:block_vcr_sync_counter}
+	\label{fig:block_vcr_sync_counter}
 \end{figure}
 
 \begin{figure}[H]
@@ -310,10 +310,10 @@ The code for this block is given in \autoref{lst:sv_vcr_sync_counter}.
 The code for this block is given in \autoref{lst:sv_vcr_counter}.
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/counter.png}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/counter.png}
 	\caption{An expanded view of the \code{counter} block \code{count} in \autoref{fig:block_vcr_sync_counter}.  The counter contains D flip-flops with enable and clear inputs that increment the stored value on each rising edge of \code{i_clk}.}
-    \label{fig:block_vcr_counter}
+	\label{fig:block_vcr_counter}
 \end{figure}
 
 \begin{figure}[H]
@@ -331,10 +331,10 @@ The code for this block is given in \autoref{lst:sv_vcr_counter}.
 The code for this block is given in \autoref{lst:sv_vcr_sync}.
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/sync.png}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/sync.png}
 	\caption{An expanded view of the \code{sync} block \code{synchronizer} in \autoref{fig:block_vcr_sync_counter}.  The synchronizer contains two D flip-flops, forcing the input value \code{i_d} to pass through both (synchronizing with \code{i_clk} in the process) before being output on \code{o_q}.}
-    \label{fig:block_vcr_sync}
+	\label{fig:block_vcr_sync}
 \end{figure}
 
 \begin{figure}[H]
@@ -352,10 +352,10 @@ The code for this block is given in \autoref{lst:sv_vcr_sync}.
 The code for this block is given in \autoref{lst:sv_vcr_shiftreg}.
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/shiftreg.png}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/shiftreg.png}
 	\caption{An expanded view of the \code{shiftreg} block \code{bit_store} in \autoref{fig:block_vcr_ir_decoder}.  The shift register uses D flip-flops with enable and clear inputs to store thir value.  If \code{i_load} is low, \code{i_sin} is combined with all of the stored bits without the oldest one and sent to the flip-flops' data inputs.  If \code{i_load} is high, the entirety of \code{i_pin} is sent to those data inputs.}
-    \label{fig:block_vcr_shiftreg}
+	\label{fig:block_vcr_shiftreg}
 \end{figure}
 
 \begin{figure}[H]
@@ -373,10 +373,10 @@ The code for this block is given in \autoref{lst:sv_vcr_shiftreg}.
 The code for this block is given in \autoref{lst:sv_vcr_checksum_validator}.
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/checksum_validator.png}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/checksum_validator.png}
 	\caption{An expanded view of the \code{checksum_validator} block \code{validator} in \autoref{fig:block_vcr_ir_decoder}.  The validator XORs the first quarter of the code with the second quarter and the third quarter of the code with the fourth.  If the checksum is valid, the result should be a string of all 1s. This is checked by ANDing together the output of all of the XORs.  The result of this (\code{o_checksum_valid}) is 1 if the checksum is valid and 0 if it is invalid.}
-    \label{fig:block_vcr_checksum_validator}
+	\label{fig:block_vcr_checksum_validator}
 \end{figure}
 
 \begin{figure}[H]
@@ -394,10 +394,10 @@ The code for this block is given in \autoref{lst:sv_vcr_checksum_validator}.
 The code for this block is given in \autoref{lst:sv_vcr_ir_code_decoder}.
 
 \begin{figure}[H]
-  \centering
-    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/ir_code_decoder.png}
+	\centering
+	\includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/ir_code_decoder.png}
 	\caption{An expanded view of the \code{ir_code_decoder} block \code{code_decoder} in \autoref{fig:block_vcr_ir_decoder}.  On the left, \code{i_ir_code} is checked against each of the possible codes so that the output of the comparators acts as a one-hot encoding of the decoded value.  On the right is the simplified logic which uses these outputs to set the bits of \code{o_decoded} accordingly.}
-    \label{fig:block_vcr_ir_code_decoder}
+	\label{fig:block_vcr_ir_code_decoder}
 \end{figure}
 
 \begin{figure}[H]
