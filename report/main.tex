@@ -94,7 +94,7 @@ TODO
 
 \subsection{VCR Remote Decoder}
 
-\textbf{Input:} This reads a 50MHz clock signal (\code{i_clk}), an active low reset (\code{i_reset_n}), and a signal from an IR sensor (\code{i_ir_signal}).
+\textbf{Input:} This module reads a 50MHz clock signal (\code{i_clk}), an active low reset (\code{i_reset_n}), and a signal from an IR sensor (\code{i_ir_signal}).
 \\ \\
 \textbf{Output:} \code{o_button_ss[6..0]} is used to display the latest VCR remote button value received on a 7-segment display.  This output also turns the display off if no code has yet been recieved or an unrecognized code was received.  \code{o_checksum_valid} indicates whether the latest 32-bit code received has a vaild checksum, which is be the case for all valid codes.
 \\ \\
@@ -181,7 +181,7 @@ The code for this block is given in \autoref{lst:sv_vcr_ir_decoder}.
 
 \subsubsection{IR Signal Transcriber}
 
-\textbf{Input:} This reads a 50MHz clock signal (\code{i_clk}), an active low reset (\code{i_reset_n}), and a signal from an IR sensor (\code{i_ir_signal}).
+\textbf{Input:} This module reads a 50MHz clock signal (\code{i_clk}), an active low reset (\code{i_reset_n}), and a signal from an IR sensor (\code{i_ir_signal}).
 \\ \\
 \textbf{Output:} \code{o_latest_bit} indicates the last bit seen in the IR signal.  \code{o_read_bits} indicates whether new bits are currently being read.
 \\ \\
@@ -202,6 +202,109 @@ The simulations in the previous section also serve to simulate this module.
 	\caption{An expanded view of the second half of the IR signal transcriber block in \autoref{fig:block_vcr_ir_decoder}.  A counter (\code{leader_low_count}) acts similarly to \code{leader_high_count}.  It is enabled when the high part of the leader has ended and counts up to the length of the low part of the leader.  It resets once it has reached that length.  At this point, \code{pulse_count} is enabled and counts as long as the signal is low.  This is used to determine the length of each pulse distance.  A comparator determines if the distance is less than a cutoff (a 0) or greater than the cutoff (signifying  a 1).  Additionally, \code{o_read_bits} is set high when the low part of the leader has ended and fewer than 32 bits have been read.}
     \label{fig:block_vcr_ir_signal_transcriber_2}
 \end{figure}
+
+\subsubsection{Sync-Counter}
+
+\textbf{Input:} This module reads a clock signal (\code{i_clk}), a separate synchronizer clock signal (\code{i_clk_orig}), an enable signal (\code{i_enable}), and an active low reset (\code{i_reset_n}).  It also takes in another reset input (\code{i_reset_cond}) that is active high and also resets the counter.
+\\ \\
+\textbf{Output:} \code{o_count} provides the current value of the counter.
+\\ \\
+The code for this block is given in \autoref{lst:sv_vcr_sync_counter}.
+\\ \\
+TODO SIMULATIONS
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/sync_counter.png}
+	\caption{An expanded view of the \code{sync_counter} block \code{bit_count} in \autoref{fig:block_vcr_ir_signal_transcriber_1}.  This module acts like a clock but places a synchronizer between the reset input and the clock reset.  It also adds an extra reset condition \code{i_reset_cond} that is combined with the active low \code{i_reset_n} to also reset the counter when that input is high.}
+    \label{fig:block_vcr_sync_counter}
+\end{figure}
+
+\subsubsection{Counter}
+
+\textbf{Input:} This module reads a clock signal (\code{i_clk}), an enable signal (\code{i_enable}), and an active low reset (\code{i_reset_n}).  
+\\ \\
+\textbf{Output:} \code{o_count} provides the current value of the counter.
+\\ \\
+The code for this block is given in \autoref{lst:sv_vcr_counter}.
+\\ \\
+TODO SIMULATIONS
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/counter.png}
+	\caption{An expanded view of the \code{counter} block \code{count} in \autoref{fig:block_vcr_sync_counter}.  The counter contains D flip-flops with enable and clear inputs that increment the stored value on each rising edge of \code{i_clk}.}
+    \label{fig:block_vcr_counter}
+\end{figure}
+
+\subsubsection{Synchronizer}
+
+\textbf{Input:} This module reads a clock signal (\code{i_clk}) and a data signal (\code{i_d}).
+\\ \\
+\textbf{Output:} \code{o_q} provides the synchronized data signal.
+\\ \\
+The code for this block is given in \autoref{lst:sv_vcr_sync}.
+\\ \\
+TODO SIMULATIONS
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/sync.png}
+	\caption{An expanded view of the \code{sync} block \code{synchronizer} in \autoref{fig:block_vcr_sync_counter}.  The synchronizer contains two D flip-flops, forcing the input value \code{i_d} to pass through both (synchronizing with \code{i_clk} in the process) before being output on \code{o_q}.}
+    \label{fig:block_vcr_sync}
+\end{figure}
+
+\subsubsection{Shift Register}
+
+\textbf{Input:} This module reads a clock signal (\code{i_clk}), an enable signal (\code{i_enable}), and an active low reset signal (\code{i_reset_n}).  It also has a serial input (\code{i_sin}), a parallel input (\code{i_pin}), and a parallel load signal (\code{i_load}).
+\\ \\
+\textbf{Output:} \code{o_sout} provides the stored data serially.  \code{o_pout} provides the stored data in a parallel format.
+\\ \\
+The code for this block is given in \autoref{lst:sv_vcr_shiftreg}.
+\\ \\
+TODO SIMULATIONS
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/shiftreg.png}
+	\caption{An expanded view of the \code{shiftreg} block \code{bit_store} in \autoref{fig:block_vcr_ir_decoder}.  The shift register uses D flip-flops with enable and clear inputs to store thir value.  If \code{i_load} is low, \code{i_sin} is combined with all of the stored bits without the oldest one and sent to the flip-flops' data inputs.  If \code{i_load} is high, the entirety of \code{i_pin} is sent to those data inputs.}
+    \label{fig:block_vcr_shiftreg}
+\end{figure}
+
+\subsubsection{Checksum Validator}
+
+\textbf{Input:} This module reads a signal (\code{i_data}) for the code to be checked.
+\\ \\
+\textbf{Output:} \code{o_checksum_valid} indicates whether the code's checksum is valid.
+\\ \\
+The code for this block is given in \autoref{lst:sv_vcr_checksum_validator}.
+\\ \\
+TODO SIMULATIONS
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/checksum_validator.png}
+	\caption{An expanded view of the \code{checksum_validator} block \code{validator} in \autoref{fig:block_vcr_ir_decoder}.  The validator XORs the first quarter of the code with the second quarter and the third quarter of the code with the fourth.  If the checksum is valid, the result should be a string of all 1s. This is checked by ANDing together the output of all of the XORs.  The result of this (\code{o_checksum_valid}) is 1 if the checksum is valid and 0 if it is invalid.}
+    \label{fig:block_vcr_checksum_validator}
+\end{figure}
+
+\subsubsection{IR Code Decoder}
+
+\textbf{Input:} This module reads the code to be decoded (\code{i_ir_code}) .
+\\ \\
+\textbf{Output:} \code{o_decoded} provides the decoded value sent by the remote (a number 0-9).
+\\ \\
+The code for this block is given in \autoref{lst:sv_vcr_ir_code_decoder}.
+\\ \\
+TODO SIMULATIONS
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=.85\textwidth]{images/block_diagrams/vcr_remote/ir_code_decoder.png}
+	\caption{An expanded view of the \code{ir_code_decoder} block \code{code_decoder} in \autoref{fig:block_vcr_ir_decoder}.  On the left, \code{i_ir_code} is checked against each of the possible codes so that the output of the comparators acts as a one-hot encoding of the decoded value.  On the right is the simplified logic which uses these outputs to set the bits of \code{o_decoded} accordingly.}
+    \label{fig:block_vcr_ir_code_decoder}
+\end{figure}
+
 
 \appendix
 \section{SystemVerilog Files}
@@ -239,12 +342,12 @@ TODO
 
 \subsection{PS2 Keyboard Decoder}
 
-\subsubsection{PS\_2 Module}
+\subsubsection{\texttt{PS\_2} Module}
 \filelisting[label=lst:sim_ps2_ps_2]{../do_files/ps2/PS2.do}
 
 \subsection{VCR Remote Decoder}
 
-\subsubsection{ir\_decoder Module}
+\subsubsection{\texttt{ir\_decoder} and \texttt{ir\_signal\_transcriber} Modules}
 \filelisting{../do_files/vcr_remote/setup.do}
 \filelisting{../do_files/vcr_remote/reset.do}
 \filelisting[label=lst:sim_vcr_ir_decoder_0]{../do_files/vcr_remote/0.do}
