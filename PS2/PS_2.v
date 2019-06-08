@@ -14,13 +14,15 @@
 
 // PROGRAM		"Quartus Prime"
 // VERSION		"Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition"
-// CREATED		"Fri Jun 07 01:55:28 2019"
+// CREATED		"Fri Jun 07 04:59:37 2019"
 
 module PS_2(
 	data,
 	device_clock,
 	clock,
 	debug,
+	hex1,
+	hex2,
 	ones,
 	sixteens
 );
@@ -30,6 +32,8 @@ input wire	data;
 input wire	device_clock;
 input wire	clock;
 output wire	debug;
+output wire	[3:0] hex1;
+output wire	[3:0] hex2;
 output wire	[6:0] ones;
 output wire	[6:0] sixteens;
 
@@ -131,5 +135,7 @@ checker	b2v_inst7(
 	.clk(clock),
 	.q(SYNTHESIZED_WIRE_4));
 
+assign	hex1[3:0] = display[3:0];
+assign	hex2[3:0] = display[7:4];
 
 endmodule
