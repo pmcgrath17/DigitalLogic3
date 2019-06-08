@@ -63,12 +63,20 @@
 \maketitle
 \tableofcontents
 \newpage
-\section{Project Description}
+\section{Introduction}
+
+\paragraph{The purpose of this project is to design and implement decoders which interpret the inputs of different devices, each device using different clock speeds, timings, and protocols for representing their data. The three device protocols supported in this project were: the PS/2 protocol, which may be used by a keyboard, the IR communication protocol, more specifically the data for an infrared remote control, and lastly, the famous NES controller and its communication protocol. In order to improve the functionality of this project, all three of these controllers will be supported and their respective decoders will be connected to the output by way of a multiplexer. It will then be left up to the interpretation of the receiver for how to handle and interpret the outputs of these circuits.}
+
+\subsection{Project deliverables}
+\begin{itemize}
+\item Decodes controller inputs from IR VCR remote, NES controller, and PS2 keyboard protocols.
+\item (Extra feature) Allows user to select which controller they wish to have interpreted by the circuit.
+\end{itemize}
 
 \newpage
 \section{High Level Description}
 
-TODO
+The project consists of three decoders, one each for NES, IR, and PS2 controllers, which all forward their outputs to a multiplexer. The multiplexer has a 2-bit input which allows for it to select between the three different controllers' inputs. The 8-bit output of the multiplexer is then wired to the output of the circuit. 
 
 \begin{figure}[ht]
   \centering
