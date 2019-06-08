@@ -206,6 +206,15 @@ Description: As the reset signal is a logic HIGH (1) and there is a clock input 
 \end{figure}
 
 \subsection{PS2 Keyboard Decoder}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.6\textwidth,angle=90,origin=c]{images/block_diagrams/PS2/PS2Top.jpg}
+	\caption{Inputs: This takes in a 10-12.6kHz clock, 10MHz clock, and a 1-bit data signal. \newline
+	Outputs: This outputs a 1-bit debug, two 4-bit buses with the hex values of the button pressed, and two 7-bit buses that are meant to drive  an active-low seven segment display. \newline}
+	\label{fig:PS2_decoder}
+\end{figure}
+
 \subsubsection{Individual Block}
 \subsubsection{Next Individual Block}
 \subsubsection{Next Individual Block}
@@ -222,7 +231,7 @@ The code for this block is given in \autoref{lst:sv_vcr_ir_decoder}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{images/block_diagrams/vcr_remote/ir_decoder.png}
+	\includegraphics[width=0.85\textwidth]{images/block_diagrams/vcr_remote/ir_decoder.png}
 	\caption{An expanded view of the top-level VCR remote decoder block in \autoref{fig:top_level}.  This interprets codes sent over IR using the NEC protocol as described in \cite{nec}.  A signal transcriber (\code{signal_transcriber}) determines whether bits are currently being sent and the most recent bit.  These are fed into a shift register (\code{bit_store}) at the end of the transmission of each bit.  Once an entire code has been transmitted, the contents of that register are transferred to another, \code{final_code}.  The checksum of this code is then checked by the checksum validator \code{validator} and output to \code{o_checksum_valid}.  It is also decoded to the number pressed on the remote by a decoder (\code{code_decoder}) and then converted to a 7-segment display signal by \code{segsev_converter} before being output to \code{o_button_ss}.}
 	\label{fig:block_vcr_ir_decoder}
 \end{figure}
