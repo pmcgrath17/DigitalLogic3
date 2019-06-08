@@ -1,0 +1,11 @@
+add wave *
+force dataYellow 1 @ 0ns
+force reset_n 1 @ 0ns
+force count 0 @ 0ns, 1 @ 100ns, 2 @ 200ns, 3 @ 300ns, 4 @ 400ns, 5 @ 500ns, 
+6 @ 600ns, 7 @ 700ns, 8 @ 800ns, 9 @ 900ns, A @ 1000ns, B @ 1100ns, C @ 1200ns, 
+D @ 1300ns, E @ 1400ns, F @ 1500ns
+run 1600ns
+force reset_n 0 @ 1600ns
+run 100ns
+run dataYellow 0 @ 1700ns
+run 100ns
